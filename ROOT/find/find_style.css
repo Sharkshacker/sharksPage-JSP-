@@ -1,0 +1,123 @@
+/* find_style.css - Sharks 계정 찾기 전용 스타일 */
+
+body.index-page {
+    background-color: #87cee8; /* 하늘색 배경 */
+}
+
+.find-menu-container {
+    max-width: 600px;  /* 더 넓게 */
+    margin: 100px auto;
+    background: #fff;
+    padding: 60px 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.find-menu-button {
+    display: inline-block;
+    min-width: 280px;
+    max-width: 100%;
+    padding: 20px 30px;
+    font-size: 1.3em;
+    background-color: #0077aa;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.find-menu-button:hover {
+    background-color: #005f88;
+}
+
+@media (max-width: 480px) {
+    .find-menu-container {
+        padding: 30px 20px;
+    }
+
+    .find-menu-button {
+        font-size: 1.1em;
+        padding: 16px 24px;
+    }
+}
+
+.find-container {
+    max-width: 500px;
+    margin: 80px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    text-align: left;
+}
+
+.find-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #003366;
+}
+
+.find-form {
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.find-form label {
+    width: 120px;      /* 라벨 너비 통일 */
+    min-width: 100px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: bold;
+    color: #333;
+    text-align: right;
+    font-size: 16px;
+}
+
+.find-form input[type="text"],
+.find-form input[type="email"] {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    margin-top: 0;
+    margin-bottom: 0;
+    background: #fafcfd;
+}
+
+.find-form input[type="submit"], .find-form button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 14px;
+    background-color: #0077aa;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 17px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.find-form input[type="submit"]:hover, .find-form button:hover {
+    background-color: #005f88;
+}

@@ -1,0 +1,235 @@
+
+/* ─── 1. 페이지 전체 배경 & 레이아웃 ───────────────────────────────── */
+body.index-page {
+  background-color: #87cee8;
+  padding-top: 100px;
+}
+.main-box {
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ─── 2. 테이블 스타일 ─────────────────────────────────────────────── */
+.index {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.index th {
+  background-color: #004085;
+  color: #fff;
+  padding: 12px;
+}
+.index td {
+  color: #333;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* ─── 3. 페이지네이션 ─────────────────────────────────────────────── */
+.page {
+  text-align: center;
+  margin-top: 20px;
+}
+.page a {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 6px 12px;
+  border: 1px solid #004085;
+  border-radius: 5px;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.page a:hover {
+  background-color: #004085;
+  color: #fff;
+}
+
+/* ─── 4. 삭제 컬럼 너비 & 중앙 정렬 ───────────────────────────────── */
+.index col.delete-col {
+  width: 120px; /* 원하는 너비로 조정 */
+}
+.index th.delete-col,
+.index td.delete-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ─── 5. 삭제 버튼 ───────────────────────────────────────────────── */
+button.btn-delete {
+  background-color: #e74c3c;      /* 기본 빨강 */
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+button.btn-delete:hover,
+button.btn-delete:focus {
+  background-color: #c0392b;      /* 호버 시 더 진한 빨강 */
+}
+button.btn-delete[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── 6. 파일 정리 버튼 ───────────────────────────────────────────── */
+.cleanup-form {
+  text-align: right;
+  margin-bottom: 16px;
+}
+button.btn-cleanup {
+  background-color: #87cee8;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+button.btn-cleanup:hover {
+  background-color: #0056b3;
+}
+
+/* ─── 7. 관리자 대량등록 전용 컨테이너 ────────────── */
+/* 회원 대량 등록 - 메인 컨테이너 */
+.admin-import-main {
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* 네비바 아래에서 충분히 내려오게 */
+  padding-top: 40px;
+}
+
+/* 카드 본체 */
+.admin-import-box {
+  width: 100%;
+  max-width: 900px;
+  min-width: 350px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  padding: 48px 52px 44px 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 나머지 스타일은 그대로 사용해도 OK */
+.admin-import-title {
+  font-size: 2.3em;
+  font-weight: 900;
+  color: #163759;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: -1.2px;
+}
+
+.admin-import-desc {
+  font-size: 1.06em;
+  color: #555;
+  margin-bottom: 22px;
+  text-align: center;
+}
+
+textarea[name="xml"] {
+  width: 100%;
+  min-width: 350px;
+  max-width: 780px;
+  font-family: 'Fira Mono', 'Consolas', monospace;
+  font-size: 1.08em;
+  border-radius: 8px;
+  border: 1.5px solid #b2cee4;
+  padding: 16px;
+  background: #fafdff;
+  margin-bottom: 18px;
+  resize: vertical;
+  box-shadow: 0 2px 10px rgba(128,210,240,0.06);
+}
+
+
+
+.admin-import-result-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #193557;
+  margin: 30px 0 10px 0;
+  text-align: left;
+  width: 100%;
+}
+
+.admin-import-result {
+  width: 100%;
+  min-height: 48px;
+  background: #f7faff;
+  border: 1.5px solid #d3e3f4;
+  border-radius: 8px;
+  padding: 18px 14px 14px 18px;
+  font-family: 'Fira Mono', 'Consolas', monospace;
+  font-size: 1em;
+  color: #1d364a;
+  word-break: break-all;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 12px rgba(40,150,230,0.06);
+}
+
+.admin-import-form {
+  width: 100%;
+}
+
+.admin-import-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: stretch; /* 버튼이 textarea 높이에 맞게 */
+  margin-bottom: 20px;
+}
+
+.admin-import-row textarea[name="xml"] {
+  flex: 1 1 0%;
+  margin-bottom: 0; /* 아래 마진 제거 */
+}
+
+.admin-import-row button[type="submit"] {
+  height: auto;
+  align-self: stretch; /* 버튼이 textarea 전체 높이에 맞게 */
+  min-width: 150px;
+  font-size: 1.1em;
+  writing-mode: horizontal-tb; /* 글자 가로로 */
+  letter-spacing: 0.02em;
+  white-space: normal;
+  word-break: keep-all;
+  margin-bottom: 0;
+  background: #2476c8;
+  transition: background 0.2s;
+}
+.admin-import-row button[type="submit"]:hover {
+  background: #18497a;
+}
+
+.btn-import {
+  background-color: #87cee8;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.08em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.btn-import:hover {
+  background-color: #0056b3;
+}
