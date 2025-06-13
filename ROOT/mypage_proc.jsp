@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*, java.util.*, java.util.regex.*, java.io.*" %>
-<%@ page import="javax.servlet.http.Part" %>
+<%@ page import="jakarta.servlet.http.Part" %>
 <%@ include file="db.jsp" %>
 <%
     request.setCharacterEncoding("UTF-8");
