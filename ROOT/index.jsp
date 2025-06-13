@@ -31,11 +31,18 @@
         }
     }
 
-    String orderBy = "ORDER BY board_idx DESC";
-    if ("oldest".equals(sortBy)) orderBy = "ORDER BY board_idx ASC";
-    else if ("views".equals(sortBy)) orderBy = "ORDER BY board_views DESC";
+    // 관리자글 상단 정렬(공지)
+    String orderBy = "ORDER BY notice_order ASC, board_idx DESC";
+    if ("oldest".equals(sortBy)) orderBy = "ORDER BY notice_order ASC, board_idx ASC";
+    else if ("views".equals(sortBy)) orderBy = "ORDER BY notice_order ASC, board_views DESC";
 
-    String sql = "SELECT * FROM board_table " + whereClause + " " + orderBy;
+    String sql =
+        "SELECT b.*, u.user_id, " +
+        "CASE WHEN u.user_id = 'admin' THEN 1 ELSE 2 END AS notice_order " +
+        "FROM board_table b " +
+        "JOIN user_table u ON b.user_idx = u.user_idx " +
+        whereClause + " " + orderBy;
+
     PreparedStatement stmt = db_conn.prepareStatement(sql);
     ResultSet rs = stmt.executeQuery();
 %>
@@ -86,18 +93,20 @@
                     String title = rs.getString("board_title");
                     String date = rs.getString("board_date");
                     int views = rs.getInt("board_views");
-                    int userIdx = rs.getInt("user_idx");
+                    String author = rs.getString("user_id"); // JOIN 결과에서 바로 가져옴
+                    int secret = rs.getInt("board_secret");
 
-                    PreparedStatement userStmt = db_conn.prepareStatement("SELECT user_id FROM user_table WHERE user_idx = ?");
-                    userStmt.setInt(1, userIdx);
-                    ResultSet userRs = userStmt.executeQuery();
-                    String author = userRs.next() ? userRs.getString("user_id") : "Unknown";
-                    userRs.close();
-                    userStmt.close();
+                    String displayTitle = title;
+                    if (secret == 1) {
+                        displayTitle = "<span style='color:#f15c6f;font-weight:bold'>[비밀글입니다]</span> ";
+                    }
+                    if ("admin".equals(author)) {
+                        displayTitle = "<span style='color:#2a6bff;font-weight:bold'>[공지]</span> " + displayTitle;
+                    }
             %>
             <tr>
                 <td><%= idx %></td>
-                <td><a href="board/view.jsp?id=<%= idx %>"><%= title %></a></td>
+                <td><a href="board/view.jsp?id=<%= idx %>"><%= displayTitle %></a></td>
                 <td><%= author %></td>
                 <td><%= date %></td>
                 <td><%= views %></td>
@@ -110,7 +119,6 @@
         </table>
 
         <div class="page">
-            <!-- 페이지네이션 별도 JSP 포함 -->
             <jsp:include page="board/pagenation.jsp" />
         </div>
     </div>

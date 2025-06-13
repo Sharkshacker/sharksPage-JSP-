@@ -9,6 +9,11 @@ body {
     padding-top: 80px;
 }
 
+.index a {
+    text-decoration: none;
+}
+
+
 .index-page {
     background-color: white;
 }
