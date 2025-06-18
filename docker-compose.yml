@@ -28,7 +28,7 @@ services:
       - mysql
 
   apache:
-    image: apache:latest 
+    image: apache:latest
     container_name: apache
     restart: unless-stopped
     ports:

@@ -71,7 +71,6 @@
 <%
         return;
     }
-
     if (email == null || !email.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
 %>
         <script>
