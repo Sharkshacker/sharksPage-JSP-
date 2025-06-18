@@ -5,6 +5,47 @@
 <%
     request.setCharacterEncoding("UTF-8");
 
+    // ===== 이미지 검증 유틸리티 함수 =====
+%>
+<%! 
+    private static final String[] BLOCKED_EXT = {
+    "jspx", "php", "asp", "aspx", "exe", "bat", "sh", "js", "html", "htm", "phtml", "cgi"
+    };
+    private static final String[] ALLOWED_MIME = {"image/jpeg", "image/png", "image/gif", "image/bmp", "image/webp"};
+
+    private boolean checkExtension(String filename) {
+        if (filename == null) return false;
+        String lower = filename.toLowerCase();
+        for (String ext : BLOCKED_EXT) {
+            if (lower.endsWith("." + ext)) return true;
+        }
+        return false;
+    }
+    private boolean checkMimeType(String mime) {
+        if (mime == null) return false;
+        for (String m : ALLOWED_MIME) {
+            if (mime.equalsIgnoreCase(m)) return true;
+        }
+        return false;
+    }
+    private boolean checkMagicNumber(InputStream is) throws Exception {
+        byte[] buf = new byte[8];
+        int len = is.read(buf);
+        if (len < 4) return false;
+        // JPEG: FF D8 FF
+        if (buf[0]==(byte)0xFF && buf[1]==(byte)0xD8 && buf[2]==(byte)0xFF) return true;
+        // PNG: 89 50 4E 47
+        if (buf[0]==(byte)0x89 && buf[1]==(byte)0x50 && buf[2]==(byte)0x4E && buf[3]==(byte)0x47) return true;
+        // GIF: 47 49 46 38
+        if (buf[0]==(byte)0x47 && buf[1]==(byte)0x49 && buf[2]==(byte)0x46 && buf[3]==(byte)0x38) return true;
+        // BMP: 42 4D
+        if (buf[0]==(byte)0x42 && buf[1]==(byte)0x4D) return true;
+        // WebP: 52 49 46 46....57 45 42 50
+        if (buf[0]==(byte)0x52 && buf[1]==(byte)0x49 && buf[2]==(byte)0x46 && buf[3]==(byte)0x46) return true;
+        return false;
+    }
+%>
+<%
     if (!"POST".equalsIgnoreCase(request.getMethod())) {
         return;
     }
@@ -25,7 +66,6 @@
     } else {
         formToken = request.getParameter("csrf_token");
     }
-    
     if (sessionToken == null || formToken == null || !sessionToken.equals(formToken)) {
 %>
         <script>
@@ -104,10 +144,48 @@
         }
         sql = "UPDATE user_table SET user_id = ?, user_email = ?, user_phonenum = ?, profile_image = NULL WHERE user_idx = ?";
     }
-    // 새 이미지 업로드
+    // 새 이미지 업로드 (여기서 검증!)
     else if (request.getPart("profileImage") != null && request.getPart("profileImage").getSize() > 0) {
         Part imageFile = request.getPart("profileImage");
         String fileName = imageFile.getSubmittedFileName();
+
+        // [1] 확장자 체크
+        if (checkExtension(fileName)) {
+%>
+            <script>
+                alert('이미지 파일만 업로드할 수 있습니다. (확장자)');
+                history.back();
+            </script>
+<%
+            return;
+        }
+
+        // [2] MIME 타입 체크
+        String mimeType = imageFile.getContentType();
+        if (!checkMimeType(mimeType)) {
+%>
+            <script>
+                alert('이미지 파일만 업로드할 수 있습니다. (MIME)');
+                history.back();
+            </script>
+<%
+            return;
+        }
+
+        // [3] Magic number(시그니처) 체크
+        InputStream imgIs = imageFile.getInputStream();
+        if (!checkMagicNumber(imgIs)) {
+            imgIs.close();
+%>
+            <script>
+                alert('실제 이미지 파일만 업로드할 수 있습니다. (Magic Number)');
+                history.back();
+            </script>
+<%
+            return;
+        }
+        imgIs.close();
+
         String uploadDir = application.getRealPath("/") + "userupload/";
         File dir = new File(uploadDir);
         if (!dir.exists()) dir.mkdirs();
