@@ -32,7 +32,7 @@
                     <% if ("admin".equals(username)) { %>
                         <h2><a href="<%= BASE_URL %>/admin/admin.jsp"><%= username %></a></h2>
                     <% } else if (username != null) { %>
-                        <h2><%= username %></h2>
+                        <h2><a href="<%= BASE_URL %>/admin/admin.jsp"><%= username %></a></h2>
                     <% } %>
                     <p><%= email != null ? email : "" %></p>
                     <a href="<%= BASE_URL %>/mypage.jsp" class="btn">My Page</a>

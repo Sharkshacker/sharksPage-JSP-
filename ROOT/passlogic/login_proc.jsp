@@ -23,6 +23,11 @@
             session.setAttribute("phonenum", rs.getString("user_phonenum"));
             session.setAttribute("profile_image", rs.getString("profile_image") != null ? rs.getString("profile_image") : "img/profileshark.png");
 
+            Cookie jsid = new Cookie("JSESSIONID", session.getId());
+            jsid.setPath("/");
+            jsid.setHttpOnly(false);
+            response.addCookie(jsid);
+
             if ("admin".equals(rs.getString("user_id"))) {
 %>
 <script>

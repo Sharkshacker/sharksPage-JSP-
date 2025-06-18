@@ -62,15 +62,7 @@
         boolean isAuthor = (writerIdx == userIdx);
         boolean isAdmin = "admin".equals(username);
 
-        if (secret == 1 && !isAuthor && !isAdmin) {
-%>
-    <script>
-        alert('비밀글입니다. 권한이 없습니다.');
-        location.href = '../index.jsp';
-    </script>
-<%
-            return;
-        }
+        
 
         // 조회수 증가
         stmt.executeUpdate("UPDATE board_table SET board_views = board_views + 1 WHERE board_idx = " + id);

@@ -62,6 +62,16 @@
     dupStmt.close();
 
     // 유효성 검사
+    if (username == null || username.trim().isEmpty()) {
+%>
+        <script>
+            alert('이름(아이디) 칸을 비워둘 수 없습니다.');
+            history.back();
+        </script>
+<%
+        return;
+    }
+
     if (email == null || !email.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
 %>
         <script>

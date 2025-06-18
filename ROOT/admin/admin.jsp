@@ -16,6 +16,12 @@
         return;
     }
 
+    String csrfToken = (String) session.getAttribute("csrf_token");
+    if (csrfToken == null) {
+        csrfToken = UUID.randomUUID().toString();
+        session.setAttribute("csrf_token", csrfToken);
+    }
+
     // page 예약어 피하기 (adminPage 사용)
     int adminPage = 1;
     String param = request.getParameter("page");
@@ -108,6 +114,7 @@
                     <form method="POST" action="../user_delete.jsp"
                           onsubmit="return confirm('정말 삭제하시겠습니까?');" style="margin:0;">
                         <input type="hidden" name="uid" value="<%= uid %>">
+                        <input type="hidden" name="csrf_token" value="<%= csrfToken %>">
                         <button type="submit" class="btn-delete">삭제</button>
                     </form>
                 <% } %>

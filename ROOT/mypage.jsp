@@ -15,11 +15,9 @@
     }
 
     // CSRF 토큰 생성
-    String csrf_token = (String) session.getAttribute("csrf_token");
-    if (csrf_token == null) {
-        csrf_token = UUID.randomUUID().toString().replace("-", "");
-        session.setAttribute("csrf_token", csrf_token);
-    }
+    String csrf_token = UUID.randomUUID().toString().replace("-", "");
+    session.setAttribute("csrf_token", csrf_token);
+    
 
     String profileImage = session.getAttribute("profile_image") != null
         ? (String) session.getAttribute("profile_image")
