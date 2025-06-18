@@ -1,0 +1,12 @@
+<users>
+  <user>
+    <id>neo</id>
+    <pw>1234</pw>
+    <email>neo@sharks.io</email>
+  </user>
+  <user>
+    <id>kim</id>
+    <pw>5678</pw>
+    <email>kim@sharks.io</email>
+  </user>
+</users>
